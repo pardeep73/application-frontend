@@ -1,4 +1,4 @@
 
-const BaseUrl = 'http://localhost:8000';
+const BaseUrl = 'https://application-backend-one.vercel.app/';
 
 export default BaseUrl
