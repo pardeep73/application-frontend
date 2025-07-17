@@ -7,6 +7,7 @@ import BaseUrl from '../utils/BaseUrl'
 import { Loader } from './Loader'
 
 
+
 const Chat = ({ name }) => {
     // sender and receiver
     const { receiver } = useParams()

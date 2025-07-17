@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import BaseUrl from '../utils/BaseUrl'
 
+
 const Allusers = ({username}) => {
     const [users, setUsers] = useState([])
     const navigate = useNavigate()
