@@ -1,4 +1,4 @@
 
-const BaseUrl = 'https://application-backend-one.vercel.app';
+const BaseUrl = 'https://application-backend-kkiz.onrender.com';
 
 export default BaseUrl
