@@ -2,6 +2,7 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import BaseUrl from '../utils/BaseUrl'
+import { Loader } from './Loader'
 
 const Register = () => {
 
@@ -11,40 +12,58 @@ const Register = () => {
         password: ''
     })
     const navigate = useNavigate()
-
+    const [loading, setLoading] = useState(false)
 
     const getdata = (e) => {
         const { value, name } = e.target
         setData({ ...data, [name]: value })
     }
 
-    const handleform = async(e) => {
+    const handleform = async (e) => {
         try {
+            setLoading(true)
             e.preventDefault();
 
-            const result = await axios.post(`${BaseUrl}/api/user/register`,data)
-            
-            if(!result){
-                alert('something went wrong')
-                console.log(result)
+            const result = await axios.post(`${BaseUrl}/api/user/register`, data)
+
+            if (!result) {
+                setTimeout(() => {
+                    setLoading(false)
+                    alert('something went wrong')
+                    console.log(result)
+                }, 1500);
             }
-            else{
+            else {
                 const user = result.data
 
-                if(user.success === true){
-                    alert(user.message)
-                    navigate('/login')
+                if (user.success === true) {
+                    setTimeout(() => {
+                        setLoading(false)
+                        alert(user.message)
+                        navigate('/login')
+                    }, 1500);
                 }
-                else{
-                    alert(user.message)
-                    console.log(user)
+                else {
+                    setTimeout(() => {
+                        setLoading(false)
+                        alert(user.message)
+                        console.log(user)
+                    }, 1500);
                 }
             }
 
         } catch (error) {
             console.log(error)
+            setLoading(false)
             throw error;
         }
+    }
+
+    if (loading) {
+        return (
+            <>
+                <Loader />
+            </>)
     }
 
     return (

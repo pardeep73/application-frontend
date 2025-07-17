@@ -4,10 +4,10 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { socket } from '../utils/Socket'
 import { joinroom } from '../utils/RoomID'
 import BaseUrl from '../utils/BaseUrl'
+import { Loader } from './Loader'
 
 
-const Chat = () => {
-
+const Chat = ({ name }) => {
     // sender and receiver
     const { receiver } = useParams()
     const [user, setuser] = useState(null)
@@ -17,6 +17,8 @@ const Chat = () => {
         message: ''
     })
 
+    const [loading, setLoading] = useState(false)
+
     // get the sender's id
     useEffect(() => {
         axios.post(`${BaseUrl}/api/user/single`, {}, { withCredentials: true })
@@ -24,6 +26,7 @@ const Chat = () => {
 
                 if (res.data.success === true) {
                     setuser(res.data.user)
+                    
 
                 } else {
                     alert(res.data.message)
@@ -69,11 +72,15 @@ const Chat = () => {
 
     // fetch the chat among the users
     useEffect(() => {
+        setLoading(true)
         axios.post(`${BaseUrl}/api/message/getall/${receiver}`, {}, { withCredentials: true })
             .then((res) => {
 
                 if (res.data.success === true) {
                     setallmessages(res.data.data)
+                    setTimeout(() => {
+                        setLoading(false)
+                    }, 1500);
 
                 } else {
                     alert(res.data.message)
@@ -82,7 +89,9 @@ const Chat = () => {
             .catch((err) => {
                 console.log(err)
             })
-
+        return ()=>{
+            setallmessages([])
+        }
 
     }, [receiver])
 
@@ -93,15 +102,29 @@ const Chat = () => {
             const array = new Array(data)
             setallmessages(prev => [...prev, ...array])
         })
+        
         return () => {
             socket.off('message')
         }
     }, [])
 
+    
+   
     return (
-        <div className="flex flex-col flex-1 w-[90vw] p-2">
+        <div className="flex flex-col px-2 md:px-5 flex-1 w-[100%] md:w-[80%] md:ml-[20%] lg:w-[80%] lg:ml-[20%] absolute ">
+            {/* header */}
+
+            <div className='p-1 bg-black-800 h-[10vh] flex justify-between place-items-center'>
+                <div className='uppercase text-xl px-3'>{
+                    name ? (name) : 'user'
+
+                }</div>
+                <img className='mx-3 cursor md:hidden' id='nav' src="/src/assets/navigation.svg" width={30} height={30} alt="" />
+            </div>
+
+
             {/* Messages */}
-            <div className="flex-1 p-4 text-start space-y-4 overflow-y-auto h-[90vh] ">
+            <div className=" p-4 text-start space-y-4 overflow-y-auto h-[80vh] ">
 
                 {(allmessages && allmessages.length > 0) ? (
                     allmessages.map((message, index) => {
