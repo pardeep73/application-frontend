@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import BaseUrl from '../utils/BaseUrl'
 
 const Register = () => {
 
@@ -21,7 +22,7 @@ const Register = () => {
         try {
             e.preventDefault();
 
-            const result = await axios.post('http://localhost:5000/api/user/register',data)
+            const result = await axios.post(`${BaseUrl}/api/user/register`,data)
             
             if(!result){
                 alert('something went wrong')
@@ -47,7 +48,7 @@ const Register = () => {
     }
 
     return (
-        <div className='flex items-center justify-center min-h-screen'>
+        <div className='flex h-[100vh] w-[100vw] items-center justify-center min-h-screen'>
             <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
                 <h2 className="text-2xl font-bold mb-6 text-center text-black">Create an Account</h2>
                 <form onSubmit={handleform} className="space-y-5 text-start">

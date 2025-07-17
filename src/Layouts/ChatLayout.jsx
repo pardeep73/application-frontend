@@ -5,7 +5,7 @@ import { Outlet } from 'react-router-dom'
 const ChatLayout = () => {
   return (
 
-    <div className='flex'>
+    <div className='flex h-[100vh] w-[100vw] '>
         <Allusers/>
         <Outlet/>
     </div>

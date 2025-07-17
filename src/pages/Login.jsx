@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import BaseUrl from '../utils/BaseUrl'
 
 const Login = () => {
 
@@ -24,7 +25,7 @@ const Login = () => {
                 return alert('validation error')
             }
 
-            const result = await axios.post('http://localhost:5000/api/user/login', data, { withCredentials: true })
+            const result = await axios.post(`${BaseUrl}/api/user/login`, data, { withCredentials: true })
 
             if (!result) {
                 alert('something went wrong')
@@ -50,7 +51,7 @@ const Login = () => {
     }
 
     return (
-        <div className='flex items-center justify-center min-h-screen'>
+        <div className='h-[100vh] w-[100vw] flex items-center justify-center min-h-screen'>
             <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
                 <h2 className="text-2xl text-black font-bold mb-6 text-center">Login to Your Account</h2>
                 <form onSubmit={handleform} className="space-y-5 text-start">
