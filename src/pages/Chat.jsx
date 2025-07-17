@@ -109,7 +109,12 @@ const Chat = ({ name }) => {
         }
     }, [])
 
-    
+    if (loading) {
+            return (
+                <>
+                    <Loader />
+                </>)
+        }
    
     return (
         <div className="flex flex-col px-2 md:px-5 flex-1 w-[100%] md:w-[80%] md:ml-[20%] lg:w-[80%] lg:ml-[20%] absolute ">
@@ -120,7 +125,7 @@ const Chat = ({ name }) => {
                     name ? (name) : 'user'
 
                 }</div>
-                <img className='mx-3 cursor md:hidden' id='nav' src="/src/assets/navigation.svg" width={30} height={30} alt="" />
+                <img className='mx-3 cursor md:hidden' id='nav' src="/assets/navigation.svg" width={30} height={30} alt="" />
             </div>
 
 
