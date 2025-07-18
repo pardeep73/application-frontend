@@ -156,7 +156,7 @@ const Chat = ({ name }) => {
                         }
                     })
                 ) : (<div className='h-full flex justify-center place-items-center'>
-                    <h1 className='text-xl'>
+                    <h1 className='text-xl text-center'>
                         No Messages
                     </h1>
                 </div>)
