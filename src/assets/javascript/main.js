@@ -12,3 +12,8 @@ document.addEventListener('click', (e) => {
         }
     }
 })
+
+
+document.addEventListener('submit',(e)=>{
+    console(e.target)
+})

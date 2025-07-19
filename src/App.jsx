@@ -13,7 +13,6 @@ import Allusers from './pages/Allusers'
 function App() {
   const [getprop, setprop] = useState(null)
 
-
   return (
     <>
       <BrowserRouter>

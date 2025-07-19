@@ -7,9 +7,7 @@ import { Loader } from './Loader'
 const Register = () => {
 
     const [data, setData] = useState({
-        name: '',
-        email: '',
-        password: ''
+        image: 'No Image'
     })
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
@@ -19,12 +17,20 @@ const Register = () => {
         setData({ ...data, [name]: value })
     }
 
+    /*  const handleform = (e) => {
+         e.preventDefault()
+         const formdata = new FormData(e.target)
+         const image = formdata.get('image')
+         const name = formdata.get('name')
+         console.log('image Data', image,name)
+     } */
+
     const handleform = async (e) => {
         try {
             setLoading(true)
             e.preventDefault();
-
-            const result = await axios.post(`${BaseUrl}/api/user/register`, data)
+            const formdata = new FormData(e.target)
+            const result = await axios.post(`${BaseUrl}/api/user/register`, formdata)
 
             if (!result) {
                 setTimeout(() => {
@@ -59,6 +65,8 @@ const Register = () => {
         }
     }
 
+
+
     if (loading) {
         return (
             <>
@@ -81,7 +89,6 @@ const Register = () => {
                             id="name"
                             name="name"
                             required=""
-                            onChange={getdata}
                             className="w-full mt-1 px-4 py-2 border text-black border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
                         />
                     </div>
@@ -97,7 +104,6 @@ const Register = () => {
                             type="email"
                             id="email"
                             name="email"
-                            onChange={getdata}
                             required=""
                             className="w-full mt-1 px-4 py-2 border text-black border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
                         />
@@ -114,9 +120,28 @@ const Register = () => {
                             type="password"
                             id="password"
                             name="password"
-                            onChange={getdata}
                             required=""
                             className="w-full mt-1 px-4 py-2 border text-black border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        />
+                    </div>
+                    <div>
+                        <label htmlFor="image" className="block text-sm font-medium text-gray-700">
+                            Image
+                        </label>
+                        <label
+                            htmlFor="image"
+                            className="block text-sm p-3 my-1 border border-gray-300 rounded-xl font-medium text-gray-700"
+                        >
+                            {data.image}
+                        </label>
+                        <input
+                            onChange={getdata}
+                            className='hidden'
+                            id='image'
+                            name='image'
+                            type="file"
+                            accept="image/*"
+
                         />
                     </div>
 
