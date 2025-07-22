@@ -1,5 +1,5 @@
 
-const BaseUrl = 'http://localhost:8000';
+const BaseUrl = 'https://application-backend-kkiz.onrender.com';
 
 export default BaseUrl
 
