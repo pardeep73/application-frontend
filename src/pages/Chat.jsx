@@ -13,7 +13,7 @@ const Chat = ({ name }) => {
     // sender and receiver
     const { receiver } = useParams()
     const [user, setuser] = useState(null)
-
+    const [online, setOnline] = useState([undefined])
 
     //user messages
     const [allmessages, setallmessages] = useState([])
@@ -30,6 +30,7 @@ const Chat = ({ name }) => {
 
 
     const messagesEndRef = useRef(null);
+
 
 
     // get the sender's id
@@ -115,6 +116,9 @@ const Chat = ({ name }) => {
         socket.on('received', (data) => {
             const array = new Array(data)
             setallmessages(prev => [...prev, ...array])
+            if (allmessages) {
+                setTyping(false)
+            }
         })
 
         return () => {
@@ -144,10 +148,23 @@ const Chat = ({ name }) => {
 
     }, [room, message])
 
+    //auto scroll to the end when new message arrives
     useEffect(() => {
         // dom method is used to go in the view point
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, [typing,allmessages])
+    }, [typing, allmessages])
+
+
+    useEffect(() => {
+        socket.on('onlineUser', (Online) => {
+            /* console.log('online', Online) */
+            setOnline(Online)
+        })
+        return () => {
+            /* socket.emit('online', { userID: socket.id, _id: user,online: false }) */
+            socket.off('onlineUser')
+        }
+    }, [receiver])
 
     if (loading) {
         return (
@@ -157,18 +174,33 @@ const Chat = ({ name }) => {
     }
 
 
+
     return (
         <div className="flex flex-col px-2 md:px-5 flex-1 w-[100%] md:w-[65%] md:ml-[35%] lg:w-[75%] lg:ml-[25%] absolute ">
             {/* header */}
 
             <div className='p-2 bg-black-800 h-[10vh] flex justify-between place-items-center'>
                 <div className='flex py-2'>
-                    <div className='user w-[50px] h-[50px] border rounded-full'>
-                        <img className='rounded-full w-full h-full object-cover' src={name ? (name.picture) : null} alt="" />
+                    <div className=' w-[50px] h-[50px] rounded-full'>
+                        <img className='rounded-full w-full h-full object-cover' src={name ? (name.picture) : null} alt={' '}/>   
+                        {/* {
+                            (name && name.picture)?(name.picture ? (<img className='rounded-full w-full h-full object-cover' src={name ? (name.picture) : null} alt="" />) : (
+                                <div>
+                                    {name.user}
+                                </div>
+                            )):(null)
+                        } */}
                     </div>
-                    <div className='uppercase text-xl px-2 py-1'>{
-                        name ? (name.user) : 'user'
-                    }</div>
+                    <div>
+                        <div className='uppercase text-xl px-2'>{
+                            name ? (name.user) : 'user'
+                        }</div>
+                        <h2 className='px-2'>
+                            {
+                                (online && name) ? ((online.map(on => on?._id).includes(name._id)) ? (<p className='text-green-500'>Online</p>) : <p className='text-gray-500'>Offline</p>) : null
+                            }
+                        </h2>
+                    </div>
                 </div>
 
                 <img className='mx-3 cursor md:hidden' id='nav' src="/assets/navigation.svg" width={30} height={30} alt="" />
@@ -230,7 +262,7 @@ const Chat = ({ name }) => {
                     name='message'
                     value={message.message}
                     onChange={getdata}
-                    className="flex-1  rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-transparent"
+                    className="flex-1 bg-gray-700  rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-transparent"
                 />
                 <button
                     type="submit"
