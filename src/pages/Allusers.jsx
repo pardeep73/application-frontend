@@ -98,7 +98,7 @@ const Allusers = ({ username }) => {
                     )
                 })}
 
-                {/* Add more users here */}
+                
             </ul>
         </div>
     )
