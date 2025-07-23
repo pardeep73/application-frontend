@@ -79,8 +79,8 @@ const Login = () => {
         <div className='h-[100vh] w-[100vw] flex items-center justify-center min-h-screen'>
             <div className="bg-gray-200 p-8 sm:rounded-2xl shadow-lg w-full h-full  flex flex-col justify-center sm:h-auto sm:max-w-md">
                 <div className='mb-4'>
-                    <h2 className="text-2xl text-black font-bold text-center">Login to Your Account</h2>
-                    <p className='text-gray-600 py-1 text-center'>Secure login. Instant messaging and Seamless experience</p>
+                    {/* <h2 className="text-2xl text-black font-bold text-center">Login to Your Account</h2> */}
+                  {/*   <p className='text-gray-600 py-1 text-center'>Secure login. Instant messaging and Seamless experience</p> */}
                 </div>
                 <form onSubmit={handleform} className="space-y-5 text-start">
                     {/* Email */}
