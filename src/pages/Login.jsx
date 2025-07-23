@@ -77,41 +77,46 @@ const Login = () => {
 
     return (
         <div className='h-[100vh] w-[100vw] flex items-center justify-center min-h-screen'>
-            <div className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md">
-                <h2 className="text-2xl text-black font-bold mb-6 text-center">Login to Your Account</h2>
+            <div className="bg-gray-200 p-8 sm:rounded-2xl shadow-lg w-full h-full  flex flex-col justify-center sm:h-auto sm:max-w-md">
+                <div className='mb-4'>
+                    <h2 className="text-2xl text-black font-bold text-center">Login to Your Account</h2>
+                    <p className='text-gray-600 py-1 text-center'>Secure login. Instant messaging and Seamless experience</p>
+                </div>
                 <form onSubmit={handleform} className="space-y-5 text-start">
                     {/* Email */}
                     <div>
-                        <label
+                        {/* <label
                             htmlFor="email"
                             className="block text-sm font-medium text-gray-700"
                         >
                             Email Address
-                        </label>
+                        </label> */}
                         <input
                             type="email"
                             id="email"
-                            onChange={getdata}
                             name="email"
+                            onChange={getdata}
+                            placeholder='Email Address'
                             required=""
-                            className="w-full mt-1 text-black px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="w-full mt-1 px-2 py-3 sm:py-2  border-b text-gray-500 border-gray-300 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
                         />
                     </div>
                     {/* Password */}
                     <div>
-                        <label
+                        {/*  <label
                             htmlFor="password"
                             className="block text-sm font-medium text-gray-700"
                         >
                             Password
-                        </label>
+                        </label> */}
                         <input
                             type="password"
                             id="password"
+                            placeholder='Password'
                             onChange={getdata}
                             name="password"
                             required=""
-                            className="w-full mt-1 px-4 py-2 border text-black border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            className="w-full mt-1 px-2 py-3 sm:py-2  border-b text-gray-500 border-gray-300 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400"
                         />
                     </div>
                     {/* Submit Button */}
@@ -126,7 +131,7 @@ const Login = () => {
                 </form>
                 <p className="mt-4 text-center text-sm text-gray-600">
                     Don't have an account?
-                    <Link to="/" className="text-blue-500 hover:underline">
+                    <Link to="/" className="text-blue-500 mx-1 hover:underline">
                         Register here
                     </Link>
                 </p>
