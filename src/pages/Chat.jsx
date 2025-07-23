@@ -71,12 +71,13 @@ const Chat = ({ name }) => {
             e.preventDefault();
             const formdata = new FormData(e.target)
             const newmessage = formdata.get('message')
+            console.log(newmessage)
             const roomID = joinroom(receiver, user)
             socket.emit('message', { roomID, message: { message: message.message, receiver: receiver } })
             
             setMessage({ message: '' })
             
-            const result = await axios.post(`${BaseUrl}/api/message/create/${receiver}`, newmessage, { withCredentials: true })
+            const result = await axios.post(`${BaseUrl}/api/message/create/${receiver}`,{newmessage}, { withCredentials: true })
             console.log(result)
 
         } catch (error) {
