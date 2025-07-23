@@ -30,7 +30,7 @@ const Register = () => {
             setLoading(true)
             e.preventDefault();
             const formdata = new FormData(e.target)
-            const result = await axios.post(`${BaseUrl}/api/user/register`, formdata)
+            const result = await axios.post(`${BaseUrl}/api/user/register`, {formdata})
 
             if (!result) {
                 setTimeout(() => {
