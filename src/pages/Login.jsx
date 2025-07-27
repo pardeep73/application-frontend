@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import BaseUrl from '../utils/BaseUrl'
 import { Loader } from './Loader'
+import Axios from '../utils/Axios'
 
 const Login = () => {
 
@@ -32,7 +33,12 @@ const Login = () => {
 
             }
 
-            const result = await axios.post(`${BaseUrl}/api/user/login`, data, { withCredentials: true })
+           /*  const result = await axios.post(`${BaseUrl}/api/user/login`, data, { withCredentials: true }) */
+
+            const options = { withCredentials: true }
+            const result = await Axios('api/user/login',options,data)
+
+            console.log('result',result)
 
             if (!result) {
                 console.log(result)
@@ -80,7 +86,7 @@ const Login = () => {
             <div className="bg-gray-200 p-8 sm:rounded-2xl shadow-lg w-full h-full  flex flex-col justify-center sm:h-auto sm:max-w-md">
                 <div className='mb-4'>
                     {/* <h2 className="text-2xl text-black font-bold text-center">Login to Your Account</h2> */}
-                  {/*   <p className='text-gray-600 py-1 text-center'>Secure login. Instant messaging and Seamless experience</p> */}
+                    <p className='text-gray-600 py-1 text-center'>Secure login. Instant messaging and Seamless experience</p>
                 </div>
                 <form onSubmit={handleform} className="space-y-5 text-start">
                     {/* Email */}

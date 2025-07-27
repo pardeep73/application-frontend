@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import BaseUrl from '../utils/BaseUrl'
 import { Loader } from './Loader'
+import Axios from '../utils/Axios'
 
 const Register = () => {
 
@@ -30,7 +31,7 @@ const Register = () => {
             setLoading(true)
             e.preventDefault();
             const formdata = new FormData(e.target)
-            const result = await axios.post(`${BaseUrl}/api/user/register`, formdata)
+            const result = await Axios(`api/user/register`,{},formdata)
 
             if (!result) {
                 setTimeout(() => {
