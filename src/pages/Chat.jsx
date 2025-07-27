@@ -11,6 +11,7 @@ import useSocketHandler from '../Hooks/useSocketHandler'
 import useJoinRoom from '../Hooks/useJoinRoom'
 import { EmitingEvent, EventListening } from '../utils/SocketEvents'
 import useTyping from '../Hooks/useTyping'
+import useUpdateChat from '../Hooks/useUpdateChat'
 
 
 
@@ -25,12 +26,12 @@ const Chat = ({ name }) => {
     const [NewMessage, SetNewMessages] = useState(null)
     useSocketHandler('received', SetNewMessages)
 
-    // All Messages Among the Users
+    // All Messages Among the Users and Updating Chat With New Messages
     const [allmessages, SetallMessages] = useState([])
-    useAllChats(receiver, NewMessage, SetallMessages)
+    useAllChats(receiver, SetallMessages)
+    useUpdateChat(NewMessage, SetallMessages)
 
-
-
+    //creating Room
     const [room, setRoom] = useState(undefined)
     useJoinRoom(user, receiver, setRoom)
 
@@ -41,7 +42,7 @@ const Chat = ({ name }) => {
 
     // typo setup
     const [typing, setTyping] = useState(false)
-    useTyping(room,message,setTyping)
+    useTyping(room, message, setTyping)
     const messagesEndRef = useRef(null);
 
 
@@ -89,8 +90,6 @@ const Chat = ({ name }) => {
         }
     }, [NewMessage])
 
-
-    
 
     //auto scroll to the end when new message arrives
     useEffect(() => {
@@ -181,7 +180,7 @@ const Chat = ({ name }) => {
 
                                     <div key={index + 1} className="flex items-start">
                                         <div className="bg-gray-200 text-gray-900 p-3 rounded-xl rounded-bl-none max-w-[70%]">
-                                            <p  className='break-words'>{message.message}</p>
+                                            <p className='break-words'>{message.message}</p>
                                         </div>
                                         <div className='px-1 place-self-end text-gray-400 text-sm'>{time}</div>
                                     </div>

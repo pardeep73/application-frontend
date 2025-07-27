@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import Axios from "../utils/Axios";
 
-const useAllChats = (receiver, NewMessage, callback) => {
+const useAllChats = (receiver,callback) => {
 
     useEffect(() => {
         async function fetchData() {
@@ -32,7 +32,7 @@ const useAllChats = (receiver, NewMessage, callback) => {
         return () => {
            
         }
-    }, [receiver, NewMessage])
+    }, [receiver])
 
 }
 
