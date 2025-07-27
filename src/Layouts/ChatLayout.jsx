@@ -16,7 +16,7 @@ const ChatLayout = ({ username }) => {
 
   return (
 
-    <div className='flex h-[100vh] w-[100vw] relative'>
+    <div id='parent' className='flex h-[100vh] w-[100vw] relative'>
       <Allusers username={setprop} />
       <Outlet />
     </div>

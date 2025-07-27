@@ -12,6 +12,7 @@ import useJoinRoom from '../Hooks/useJoinRoom'
 import { EmitingEvent, EventListening } from '../utils/SocketEvents'
 import useTyping from '../Hooks/useTyping'
 import useUpdateChat from '../Hooks/useUpdateChat'
+import useOnline from '../Hooks/useOnline'
 
 
 
@@ -20,6 +21,7 @@ const Chat = ({ name }) => {
     // sender and receiver
     const { receiver } = useParams()
     const user = useCurrentUser();
+    
 
 
     //Received Messages
@@ -47,7 +49,8 @@ const Chat = ({ name }) => {
 
 
     //chatroom and loaders
-    const [online, setOnline] = useState([undefined])
+    const [online, setOnline] = useState([])
+    useOnline(user,setOnline)
     const [loading, setLoading] = useState(false)
 
 
@@ -98,16 +101,7 @@ const Chat = ({ name }) => {
     }, [typing, allmessages])
 
 
-    useEffect(() => {
-        socket.on('onlineUser', (Online) => {
-            /* console.log('online', Online) */
-            setOnline(Online)
-        })
-        return () => {
-            /* socket.emit('online', { userID: socket.id, _id: user,online: false }) */
-            socket.off('onlineUser')
-        }
-    }, [receiver])
+   
 
     if (loading) {
         return (
@@ -151,7 +145,7 @@ const Chat = ({ name }) => {
 
 
             {/* Messages */}
-            <div className=" p-4 text-start space-y-4 overflow-y-auto h-[80vh] border-t border-b border-gray-200">
+            <div className="message p-4 text-start space-y-4 overflow-y-auto h-[80vh] border-t border-b border-gray-200">
 
                 {
                     (allmessages && allmessages.length > 0) ? (
